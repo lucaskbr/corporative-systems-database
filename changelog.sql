@@ -242,6 +242,41 @@ create table "movement" (
 );
 
 
+create table "movement" (
+  id bigserial constraint pkey_movement primary key,
+  type  varchar(255) not null,
+  original_value numeric(19, 2),
+  interest numeric(19, 2),
+  penalty numeric(19, 2),
+  transaction_code int not null,
+  created_at timestamp not null default NOW(),
+  updated_at timestamp,
+  bill_id bigint constraint fkey_bill references "bill"
+);
+
+create table "movement" (
+  id bigserial constraint pkey_movement primary key,
+  type  varchar(255) not null,
+  original_value numeric(19, 2),
+  interest numeric(19, 2),
+  penalty numeric(19, 2),
+  transaction_code int not null,
+  created_at timestamp not null default NOW(),
+  updated_at timestamp,
+  bill_id bigint constraint fkey_bill references "bill"
+);
+
+
+create table "plan_account" (
+  id bigserial constraint pkey_plan_account primary key,
+  type varchar(255) not null,
+  value numeric(19, 2),
+  currency varchar(255),
+  account_name varchar(255) not null,
+  created_at timestamp not null default NOW(),
+  updated_at timestamp,
+  father_id bigint null constraint fkey_plan_account references "plan_account"
+);
 
 
 --changeset Lucas:2
@@ -297,5 +332,39 @@ INSERT INTO public.product_deposit (id, average_price, price, quantity, created_
 INSERT INTO public.product_deposit (id, average_price, price, quantity, created_at, updated_at, deposit_id, product_provider_id) VALUES (20, 4.76, 4.76, 213, '2020-10-12 20:08:22.745507', null, 3, 9);
 
 
-INSERT INTO public.responsible ("name") VALUES('Larissa');
-INSERT INTO public.responsible ("name") VALUES('Lucas');
+INSERT INTO public.responsible (name) VALUES('Larissa');
+INSERT INTO public.responsible (name) VALUES('Lucas');
+
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'CIRCULANTE', null, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Caixa', 1, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Caixa Geral', 2, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Bancos Conta Movimento', 1, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Bancos Alfa', 4, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Contas a Receber', null, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Clientes', 6, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Estoques', 1, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Mercadorias', 8, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'NÃO CIRCULANTE', null, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Investimentos', 10, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Particioações Societarias', 11, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Imobilizado', 10, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Maquinas e Equipamentos', 13, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Intangível', 10, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('ATIVO', 'Marcas e Patentes', 15, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'CIRCULANTE', null, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Impostos e Contribuições a recolher', 17, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Simples a Recolher', 18, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Contas a pagar', 17, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Fornecedores', 20, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Outras Contas', 20, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Empréstimos Bancários', 17, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Banco Alfa', 23, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'NÃO CIRCULANTE', null, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Emprestimos Bancários', 25, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Banco Alfa', 26, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'PATRIMONIO LÍQUIDO', 25, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Capital Social', 28, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Capital Social Integralizado', 29, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Reservas', 25, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Reservas de Capital', 31, 0, 'BRL');
+INSERT INTO public.plan_account (type, account_name, father_id, value, currency) VALUES('PASSIVO', 'Reservas de Lucros', 31, 0, 'BRL');
